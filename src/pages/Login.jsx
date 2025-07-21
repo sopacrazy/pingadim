@@ -34,13 +34,10 @@ const Login = () => {
     console.log("🔁 Enviando dados de login:", email, senha);
 
     try {
-      const response = await axios.post(
-        "http://localhost:3001/api/auth/login",
-        {
-          email,
-          senha,
-        }
-      );
+      const response = await axios.post(`${API_URL}/api/auth/login`, {
+        email,
+        senha,
+      });
 
       const { usuario, token } = response.data;
 

@@ -144,7 +144,7 @@ const CriarConta = () => {
     }
 
     try {
-      await axios.post("http://localhost:3001/api/auth/register", {
+      await axios.post(`${API_URL}/api/auth/register`, {
         nome,
         sobrenome,
         email,
@@ -179,7 +179,7 @@ const CriarConta = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:3001/api/auth/verificar-cpf/${cpfLimpo}`
+        `${API_URL}/api/auth/verificar-cpf/${cpfLimpo}`
       );
       if (response.data.existe) {
         setCpfExistente(true);

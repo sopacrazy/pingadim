@@ -22,7 +22,7 @@ const MeusPingadim = () => {
 
       try {
         const res = await fetch(
-          `http://localhost:3001/api/pingadinhos/usuario/${usuario.id}`
+          `${API_URL}/api/pingadinhos/usuario/${usuario.id}`
         );
         const data = await res.json();
         setPingadins(data);

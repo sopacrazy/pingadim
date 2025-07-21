@@ -60,7 +60,7 @@ const FinalizarPingadim = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:3001/api/pingadinhos", {
+      const response = await fetch(`${API_URL}/api/pingadinhos`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
