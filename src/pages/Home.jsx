@@ -39,6 +39,7 @@ import xtudoImg from "../img/x-tudo.png";
 import milkshakeImg from "../img/milkshake.jpeg";
 import cocaImg from "../img/coca.jpeg";
 import bannerPingadim from "../img/banner-pingadim.png";
+import logo from "../img/logo.png"; // ajusta o caminho conforme a pasta
 
 const pingadinhos = [
   {
@@ -88,7 +89,7 @@ const Home = () => {
         zIndex="1000"
         boxShadow="md"
       >
-        <Image src="/src/img/logo.png" alt="Pingadim" height="30px" />
+        <Image src={logo} alt="Pingadim" height="30px" />
         <Spacer />
         <HStack spacing={4}>
           <Button
