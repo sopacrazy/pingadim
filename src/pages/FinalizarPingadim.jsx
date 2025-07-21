@@ -89,13 +89,14 @@ const FinalizarPingadim = () => {
                 cursor="pointer"
                 onClick={() => setDestinatario("voce")}
                 w={{ base: "100%", md: "48%" }}
+                minH="120px" // 👈 força mesma altura
               >
-                <HStack spacing={3}>
+                <HStack spacing={3} align="flex-start" h="full">
                   <FaUser
                     size={24}
                     color={destinatario === "voce" ? "#DD6B20" : "#A0AEC0"}
                   />
-                  <Box>
+                  <Box flexGrow={1}>
                     <Text fontWeight="bold">Você</Text>
                     <Text fontSize="sm" color="gray.600">
                       Está arrecadando para você mesmo
@@ -115,13 +116,14 @@ const FinalizarPingadim = () => {
                 cursor="pointer"
                 onClick={() => setDestinatario("outro")}
                 w={{ base: "100%", md: "48%" }}
+                minH="120px" // 👈 mesma altura
               >
-                <HStack spacing={3}>
+                <HStack spacing={3} align="flex-start" h="full">
                   <FaHeart
                     size={24}
                     color={destinatario === "outro" ? "#DD6B20" : "#A0AEC0"}
                   />
-                  <Box>
+                  <Box flexGrow={1}>
                     <Text fontWeight="bold">Alguém mais</Text>
                     <Text fontSize="sm" color="gray.600">
                       Está arrecadando para outra pessoa

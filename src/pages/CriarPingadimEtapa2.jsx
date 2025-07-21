@@ -13,6 +13,7 @@ import {
   Text,
   Image,
   Flex,
+  useToast,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
@@ -21,13 +22,57 @@ const CriarPingadimEtapa2 = () => {
   const [link, setLink] = useState("");
   const [descricao, setDescricao] = useState("");
   const navigate = useNavigate();
+  const toast = useToast();
 
   const handleProximo = () => {
-    if (titulo.length < 3 || link.length < 3 || descricao.length < 50) return;
+    if (titulo.length < 3) {
+      toast({
+        title: "Eita!",
+        description:
+          "O título do Pingadim precisa ter pelo menos 3 caracteres.",
+        status: "warning",
+        duration: 4000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    if (link.length < 5) {
+      toast({
+        title: "Link curto demais!",
+        description: "O link precisa ter no mínimo 5 caracteres.",
+        status: "warning",
+        duration: 4000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    // ...
+    if (descricao.length < 15) {
+      toast({
+        title: "Descrição muito curta!",
+        description: `Faltam ${15 - descricao.length} caracteres.`,
+        status: "warning",
+        duration: 4000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    if (descricao.length > 50) {
+      toast({
+        title: "Descrição muito longa!",
+        description: `A descrição deve ter no máximo 50 caracteres.`,
+        status: "warning",
+        duration: 4000,
+        isClosable: true,
+      });
+      return;
+    }
 
     const info = { titulo, link, descricao };
     localStorage.setItem("pingadim_info", JSON.stringify(info));
-
     navigate("/criar/etapa3");
   };
 
@@ -52,15 +97,9 @@ const CriarPingadimEtapa2 = () => {
         />
       </Flex>
 
-      <Box
-        bg="gray.50"
-        h="calc(100vh - 65px)" // ajusta conforme a altura do topo real
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-      >
+      <Box bg="gray.50" minH="100vh" py={12} px={4}>
         <Container maxW="4xl">
-          <VStack spacing={6} align="start" mb={10}>
+          <VStack spacing={6} align="start">
             <Heading color="teal.600">Etapa 2 de 3</Heading>
             <Text fontSize="xl" fontWeight="bold">
               Defina os detalhes do seu Pingadim:
@@ -97,18 +136,28 @@ const CriarPingadimEtapa2 = () => {
                 onChange={(e) => setDescricao(e.target.value)}
               />
               <FormHelperText>
-                {descricao.length < 50
-                  ? `Faltam ${50 - descricao.length} caracteres...`
+                {descricao.length < 15
+                  ? `Faltam ${15 - descricao.length} caracteres...`
+                  : descricao.length > 50
+                  ? `Você ultrapassou ${descricao.length - 50} caracteres 😬`
                   : "Beleza! Tá tudo certo com o texto 🎉"}
               </FormHelperText>
             </FormControl>
           </VStack>
 
-          <Box textAlign="right">
-            <Button colorScheme="teal" onClick={handleProximo}>
-              Próximo
+          <Flex justify="space-between" mt={4}>
+            <Button
+              variant="ghost"
+              colorScheme="gray"
+              onClick={() => navigate("/criar")}
+            >
+              ← Voltar
             </Button>
-          </Box>
+
+            <Button colorScheme="teal" onClick={handleProximo}>
+              Próximo →
+            </Button>
+          </Flex>
         </Container>
       </Box>
     </>
