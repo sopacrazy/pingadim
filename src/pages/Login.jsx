@@ -102,7 +102,9 @@ const Login = () => {
                 Esqueceu sua senha?
               </Link>
               <Text fontSize="sm" color="gray.500">
-                <Link color="teal.600">Criar conta</Link>
+                <Link color="teal.600" onClick={() => navigate("/criar-conta")}>
+                  Criar conta
+                </Link>
               </Text>
             </HStack>
 

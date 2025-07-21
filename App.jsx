@@ -7,6 +7,7 @@ import CriarPingadimEtapa2 from "./src/pages/CriarPingadimEtapa2";
 import CriarPingadimEtapa3 from "./src/pages/CriarPingadimEtapa3";
 import FinalizarPingadim from "./src/pages/FinalizarPingadim";
 import Login from "./src/pages/Login";
+import CriarConta from "./src/pages/CriarConta";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/criar/etapa3" element={<CriarPingadimEtapa3 />} />
         <Route path="/criar/finalizar" element={<FinalizarPingadim />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/criar-conta" element={<CriarConta />} />
       </Routes>
     </Router>
   );

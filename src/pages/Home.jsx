@@ -203,6 +203,23 @@ const Home = () => {
           </VStack>
         </Container>
       </Box>
+      <Box bg="teal.600" py={{ base: 16, md: 20 }} px={4} width="100%">
+        <Container maxW="6xl">
+          <Text
+            fontSize={{ base: "md", md: "lg", lg: "xl" }}
+            color="white"
+            textAlign="center"
+            fontWeight="semibold"
+            lineHeight="1.6"
+          >
+            O Pingadim é uma plataforma de vaquinhas rápidas, leves e
+            descontraídas. Com poucos cliques, qualquer pessoa pode criar uma
+            arrecadação para um lanche, um rolê, um imprevisto ou aquele sonho
+            que só precisa de uma força da galera. Porque quando cada um pinga
+            um pouquinho, a ajuda acontece.💧
+          </Text>
+        </Container>
+      </Box>
 
       <Container maxW="6xl" py={10}>
         <Heading size="lg" mb={6} color="teal.600">
