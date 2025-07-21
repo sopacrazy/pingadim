@@ -15,15 +15,17 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { usePingadim } from "../context/PingadimContext"; // 👈 importa o contexto
 
 const CriarPingadimEtapa3 = () => {
   const [meta, setMeta] = useState("");
   const [dataEncerramento, setDataEncerramento] = useState("");
-  const [privada, setPrivada] = useState(false);
+  const [privado, setPrivada] = useState(false);
   const [comRecompensa, setComRecompensa] = useState(false);
 
   const navigate = useNavigate();
   const toast = useToast();
+  const { dados, setDados } = usePingadim(); // 👈 usa o contexto
 
   const handleProximo = () => {
     const valorNumerico = Number(
@@ -62,15 +64,14 @@ const CriarPingadimEtapa3 = () => {
       return;
     }
 
-    localStorage.setItem(
-      "pingadim_meta",
-      JSON.stringify({
-        meta: valorNumerico,
-        dataEncerramento,
-        privada,
-        comRecompensa,
-      })
-    );
+    // ✅ Salva no contexto
+    setDados({
+      ...dados,
+      valor_meta: valorNumerico,
+      data_fim: dataEncerramento,
+      privado,
+      tem_recompensas: comRecompensa,
+    });
 
     navigate("/criar/finalizar");
   };
@@ -107,7 +108,7 @@ const CriarPingadimEtapa3 = () => {
                 placeholder="Ex: R$ 60,00"
                 value={meta}
                 onChange={(e) => {
-                  const raw = e.target.value.replace(/[^\d]/g, ""); // só números
+                  const raw = e.target.value.replace(/[^\d]/g, "");
                   const valor = Number(raw) / 100;
 
                   const formatted = valor.toLocaleString("pt-BR", {
@@ -133,7 +134,7 @@ const CriarPingadimEtapa3 = () => {
             </FormControl>
 
             <Checkbox
-              isChecked={privada}
+              isChecked={privado}
               onChange={(e) => setPrivada(e.target.checked)}
             >
               Manter a campanha privada

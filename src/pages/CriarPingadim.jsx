@@ -12,8 +12,8 @@ import {
   Flex,
   Image,
 } from "@chakra-ui/react";
-
 import { useNavigate } from "react-router-dom";
+import { usePingadim } from "../context/PingadimContext"; // 👈 importa o contexto
 
 const categorias = [
   "Lanches",
@@ -30,9 +30,10 @@ const categorias = [
 ];
 
 const CriarPingadim = () => {
-  const navigate = useNavigate(); // ✅ define o navigate
-  const [selecionado, setSelecionado] = useState(null);
+  const navigate = useNavigate();
   const toast = useToast();
+  const { dados, setDados } = usePingadim(); // 👈 pega do contexto
+  const [selecionado, setSelecionado] = useState(dados?.categoria || null); // mantém categoria se já tinha
 
   const handleSelecionar = (cat) => {
     setSelecionado(cat);
@@ -49,10 +50,8 @@ const CriarPingadim = () => {
       return;
     }
 
-    // Salvar no localStorage ou contexto
-    localStorage.setItem("pingadim_categoria", selecionado);
-
-    navigate("/criar/etapa2"); // vai para o passo 2
+    setDados({ ...dados, categoria: selecionado }); // 👈 salva no contexto
+    navigate("/criar/etapa2");
   };
 
   return (
@@ -78,7 +77,7 @@ const CriarPingadim = () => {
 
       <Box
         bg="gray.50"
-        h="calc(100vh - 65px)" // ajusta conforme a altura do topo real
+        h="calc(100vh - 65px)"
         display="flex"
         alignItems="center"
         justifyContent="center"

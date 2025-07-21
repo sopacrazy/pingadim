@@ -92,13 +92,23 @@ const Home = () => {
         <Image src={logo} alt="Pingadim" height="30px" />
         <Spacer />
         <HStack spacing={4}>
-          <Button
-            variant="ghost"
-            color="white"
-            onClick={() => navigate("/login")}
-          >
-            Entrar
-          </Button>
+          {localStorage.getItem("usuario") ? (
+            <Button
+              variant="ghost"
+              color="white"
+              onClick={() => navigate("/painel")}
+            >
+              Minha conta
+            </Button>
+          ) : (
+            <Button
+              variant="ghost"
+              color="white"
+              onClick={() => navigate("/login")}
+            >
+              Entrar
+            </Button>
+          )}
 
           <Button colorScheme="whiteAlpha" onClick={() => navigate("/criar")}>
             Criar Pingadim

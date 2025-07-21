@@ -16,6 +16,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { usePingadim } from "../context/PingadimContext";
 
 const CriarPingadimEtapa2 = () => {
   const [titulo, setTitulo] = useState("");
@@ -23,6 +24,7 @@ const CriarPingadimEtapa2 = () => {
   const [descricao, setDescricao] = useState("");
   const navigate = useNavigate();
   const toast = useToast();
+  const { dados, setDados } = usePingadim(); // 👈 usa contexto
 
   const handleProximo = () => {
     if (titulo.length < 3) {
@@ -48,7 +50,6 @@ const CriarPingadimEtapa2 = () => {
       return;
     }
 
-    // ...
     if (descricao.length < 15) {
       toast({
         title: "Descrição muito curta!",
@@ -71,8 +72,13 @@ const CriarPingadimEtapa2 = () => {
       return;
     }
 
-    const info = { titulo, link, descricao };
-    localStorage.setItem("pingadim_info", JSON.stringify(info));
+    setDados({
+      ...dados,
+      titulo,
+      link_personalizado: link,
+      descricao,
+    });
+
     navigate("/criar/etapa3");
   };
 

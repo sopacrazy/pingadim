@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
+  useToast,
   Button,
   Container,
   Heading,
@@ -19,11 +20,54 @@ import {
 import { FaGoogle, FaFacebook } from "react-icons/fa";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
+  const toast = useToast();
 
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
   const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleLogin = async () => {
+    console.log("🔁 Enviando dados de login:", email, senha);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/api/auth/login",
+        {
+          email,
+          senha,
+        }
+      );
+
+      const { usuario, token } = response.data;
+
+      // Salvar no localStorage ANTES de redirecionar
+      localStorage.setItem("usuario", JSON.stringify(usuario));
+      localStorage.setItem("token", token);
+
+      toast({
+        title: "Login realizado!",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      });
+
+      // Agora sim redireciona
+      navigate("/painel");
+    } catch (error) {
+      console.error("Erro no login:", error);
+      toast({
+        title: "Erro ao fazer login",
+        description: error.response?.data?.message || "Erro inesperado.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
 
   return (
     <>
@@ -45,6 +89,7 @@ const Login = () => {
           onClick={() => navigate("/")}
         />
       </Flex>
+
       <Container maxW="sm" py={20}>
         <VStack spacing={6} textAlign="center">
           <Heading fontSize="2xl">Bem-vindo ao Pingadim</Heading>
@@ -80,11 +125,19 @@ const Login = () => {
           </HStack>
 
           <VStack spacing={4} w="100%">
-            <Input placeholder="Email" type="email" />
+            <Input
+              placeholder="Email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+
             <InputGroup>
               <Input
                 placeholder="Senha"
                 type={showPassword ? "text" : "password"}
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
               />
               <InputRightElement>
                 <Button
@@ -108,7 +161,7 @@ const Login = () => {
               </Text>
             </HStack>
 
-            <Button colorScheme="teal" w="100%">
+            <Button colorScheme="teal" w="100%" onClick={handleLogin}>
               Entrar
             </Button>
           </VStack>
