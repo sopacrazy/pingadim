@@ -78,13 +78,27 @@ const Home = () => {
   return (
     <Box>
       {/* Header */}
-      <Flex p={4} bg="teal.500" color="white" align="center">
-        <Heading size="md">Pingadim</Heading>
+      <Flex
+        p={4}
+        bg="teal.500"
+        color="white"
+        align="center"
+        position="sticky"
+        top="0"
+        zIndex="1000"
+        boxShadow="md"
+      >
+        <Image src="/src/img/logo.png" alt="Pingadim" height="30px" />
         <Spacer />
         <HStack spacing={4}>
-          <Button variant="ghost" color="white">
+          <Button
+            variant="ghost"
+            color="white"
+            onClick={() => navigate("/login")}
+          >
             Entrar
           </Button>
+
           <Button colorScheme="whiteAlpha" onClick={() => navigate("/criar")}>
             Criar Pingadim
           </Button>
@@ -282,14 +296,14 @@ const Home = () => {
           <SimpleGrid columns={{ base: 1, md: 2 }} spacing={8}>
             <Box bg="white" p={6} rounded="xl" shadow="md">
               <Text fontSize="md" mb={4}>
-                “Consegui pagar meu ingresso pro Enem graças aos amigos que
-                pingaram. Agora tô estudando com tudo pra conquistar minha vaga!
-                Obrigado, Pingadim 🙏”
+                “Consegui pagar meu Enem graças aos amigos que pingaram. Agora
+                tô estudando com tudo pra conquistar minha vaga! Obrigado,
+                Pingadim 🙏”
               </Text>
               <HStack spacing={4} align="center">
                 <Avatar
                   name="Eduarda Silva"
-                  src="https://randomuser.me/api/portraits/women/68.jpg"
+                  src="https://randomuser.me/api/portraits/women/69.jpg"
                 />
                 <Box>
                   <Text fontWeight="bold">Eduarda Silva</Text>
@@ -309,7 +323,7 @@ const Home = () => {
               <HStack spacing={4} align="center">
                 <Avatar
                   name="Igor Lima"
-                  src="https://randomuser.me/api/portraits/men/51.jpg"
+                  src="https://randomuser.me/api/portraits/men/55.jpg"
                 />
                 <Box>
                   <Text fontWeight="bold">Igor Lima</Text>

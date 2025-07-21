@@ -11,6 +11,8 @@ import {
   VStack,
   FormHelperText,
   useToast,
+  Image,
+  Flex,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
@@ -50,54 +52,81 @@ const CriarPingadimEtapa3 = () => {
   };
 
   return (
-    <Box bg="gray.50" minH="100vh" py={10}>
-      <Container maxW="4xl">
-        <VStack spacing={6} align="start">
-          <Heading color="teal.600">Etapa 3 de 3</Heading>
+    <>
+      <Flex
+        h="72px"
+        p={4}
+        bg="white"
+        color="gray.800"
+        align="center"
+        position="sticky"
+        top="0"
+        zIndex="1000"
+      >
+        <Image
+          src="/src/img/logo2.png"
+          alt="Pingadim"
+          height="30px"
+          cursor="pointer"
+          onClick={() => navigate("/")}
+        />
+      </Flex>
 
-          <FormControl isRequired>
-            <FormLabel>Seu objetivo</FormLabel>
-            <Input
-              placeholder="Ex: 6000"
-              value={meta}
-              onChange={(e) => setMeta(e.target.value)}
-              type="number"
-              min={1}
-            />
-            <FormHelperText>Meta da arrecadação em reais</FormHelperText>
-          </FormControl>
+      <Box
+        bg="gray.50"
+        h="calc(100vh - 65px)" // ajusta conforme a altura do topo real
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Container maxW="4xl">
+          <VStack spacing={6} align="start">
+            <Heading color="teal.600">Etapa 3 de 3</Heading>
 
-          <FormControl>
-            <FormLabel>Data de encerramento desejada</FormLabel>
-            <Input
-              type="date"
-              value={dataEncerramento}
-              onChange={(e) => setDataEncerramento(e.target.value)}
-            />
-          </FormControl>
+            <FormControl isRequired>
+              <FormLabel>Seu objetivo</FormLabel>
+              <Input
+                placeholder="Ex: 6000"
+                value={meta}
+                onChange={(e) => setMeta(e.target.value)}
+                type="number"
+                min={1}
+              />
+              <FormHelperText>Meta da arrecadação em reais</FormHelperText>
+            </FormControl>
 
-          <Checkbox
-            isChecked={privada}
-            onChange={(e) => setPrivada(e.target.checked)}
-          >
-            Manter a campanha privada
-          </Checkbox>
+            <FormControl>
+              <FormLabel>Data de encerramento desejada</FormLabel>
+              <Input
+                type="date"
+                value={dataEncerramento}
+                onChange={(e) => setDataEncerramento(e.target.value)}
+              />
+            </FormControl>
 
-          <Checkbox
-            isChecked={comRecompensa}
-            onChange={(e) => setComRecompensa(e.target.checked)}
-          >
-            Oferecer categorias de suporte com recompensas
-          </Checkbox>
+            <Checkbox
+              isChecked={privada}
+              onChange={(e) => setPrivada(e.target.checked)}
+            >
+              Manter a campanha privada
+            </Checkbox>
 
-          <Box textAlign="right" w="100%">
-            <Button colorScheme="teal" onClick={handleProximo}>
-              Finalizar
-            </Button>
-          </Box>
-        </VStack>
-      </Container>
-    </Box>
+            <Checkbox
+              isChecked={comRecompensa}
+              onChange={(e) => setComRecompensa(e.target.checked)}
+            >
+              Oferecer categorias de suporte com recompensas
+            </Checkbox>
+
+            <Box textAlign="right" w="100%">
+              <Button colorScheme="teal" onClick={handleProximo}>
+                Finalizar
+              </Button>
+            </Box>
+          </VStack>
+        </Container>
+      </Box>
+    </>
   );
 };
 

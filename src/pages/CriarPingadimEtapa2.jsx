@@ -11,6 +11,8 @@ import {
   Container,
   VStack,
   Text,
+  Image,
+  Flex,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
@@ -30,59 +32,86 @@ const CriarPingadimEtapa2 = () => {
   };
 
   return (
-    <Box bg="gray.50" minH="100vh" py={10}>
-      <Container maxW="4xl">
-        <VStack spacing={6} align="start" mb={10}>
-          <Heading color="teal.600">Etapa 2 de 3</Heading>
-          <Text fontSize="xl" fontWeight="bold">
-            Defina os detalhes do seu Pingadim:
-          </Text>
+    <>
+      <Flex
+        h="72px"
+        p={4}
+        bg="white"
+        color="gray.800"
+        align="center"
+        position="sticky"
+        top="0"
+        zIndex="1000"
+      >
+        <Image
+          src="/src/img/logo2.png"
+          alt="Pingadim"
+          height="30px"
+          cursor="pointer"
+          onClick={() => navigate("/")}
+        />
+      </Flex>
 
-          <FormControl isRequired>
-            <FormLabel>Título do Pingadim</FormLabel>
-            <Input
-              placeholder="Ex: Quero um x-tudo na saída da escola"
-              value={titulo}
-              onChange={(e) => setTitulo(e.target.value)}
-            />
-          </FormControl>
+      <Box
+        bg="gray.50"
+        h="calc(100vh - 65px)" // ajusta conforme a altura do topo real
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Container maxW="4xl">
+          <VStack spacing={6} align="start" mb={10}>
+            <Heading color="teal.600">Etapa 2 de 3</Heading>
+            <Text fontSize="xl" fontWeight="bold">
+              Defina os detalhes do seu Pingadim:
+            </Text>
 
-          <FormControl isRequired>
-            <FormLabel>Link personalizado</FormLabel>
-            <Input
-              placeholder="ex: lanche-do-pedro"
-              value={link}
-              onChange={(e) => setLink(e.target.value.replace(/\s/g, "-"))}
-            />
-            <FormHelperText>
-              O link ficará assim: www.pingadim.com/vaquinha/
-              <strong>{link || "seu-link"}</strong>
-            </FormHelperText>
-          </FormControl>
+            <FormControl isRequired>
+              <FormLabel>Título do Pingadim</FormLabel>
+              <Input
+                placeholder="Ex: Quero um x-tudo na saída da escola"
+                value={titulo}
+                onChange={(e) => setTitulo(e.target.value)}
+              />
+            </FormControl>
 
-          <FormControl isRequired>
-            <FormLabel>Descrição</FormLabel>
-            <Textarea
-              rows={5}
-              placeholder="Conte mais sobre o motivo do seu pingadim. Mínimo de 50 caracteres."
-              value={descricao}
-              onChange={(e) => setDescricao(e.target.value)}
-            />
-            <FormHelperText>
-              {descricao.length < 50
-                ? `Faltam ${50 - descricao.length} caracteres...`
-                : "Beleza! Tá tudo certo com o texto 🎉"}
-            </FormHelperText>
-          </FormControl>
-        </VStack>
+            <FormControl isRequired>
+              <FormLabel>Link personalizado</FormLabel>
+              <Input
+                placeholder="ex: lanche-do-pedro"
+                value={link}
+                onChange={(e) => setLink(e.target.value.replace(/\s/g, "-"))}
+              />
+              <FormHelperText>
+                O link ficará assim: www.pingadim.com/vaquinha/
+                <strong>{link || "seu-link"}</strong>
+              </FormHelperText>
+            </FormControl>
 
-        <Box textAlign="right">
-          <Button colorScheme="teal" onClick={handleProximo}>
-            Próximo
-          </Button>
-        </Box>
-      </Container>
-    </Box>
+            <FormControl isRequired>
+              <FormLabel>Descrição</FormLabel>
+              <Textarea
+                rows={5}
+                placeholder="Conte mais sobre o motivo do seu pingadim. Mínimo de 50 caracteres."
+                value={descricao}
+                onChange={(e) => setDescricao(e.target.value)}
+              />
+              <FormHelperText>
+                {descricao.length < 50
+                  ? `Faltam ${50 - descricao.length} caracteres...`
+                  : "Beleza! Tá tudo certo com o texto 🎉"}
+              </FormHelperText>
+            </FormControl>
+          </VStack>
+
+          <Box textAlign="right">
+            <Button colorScheme="teal" onClick={handleProximo}>
+              Próximo
+            </Button>
+          </Box>
+        </Container>
+      </Box>
+    </>
   );
 };
 
