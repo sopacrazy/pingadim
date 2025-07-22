@@ -23,6 +23,7 @@ import { FaGoogle, FaFacebook } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import InputMask from "react-input-mask";
 import axios from "axios";
+import { API_URL } from "../config"; // ou ajuste o caminho conforme o local
 
 // Função para validar CPF
 function validarCPF(cpf) {

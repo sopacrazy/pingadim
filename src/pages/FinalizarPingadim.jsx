@@ -14,6 +14,7 @@ import {
 import { FaUser, FaHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { usePingadim } from "../context/PingadimContext"; // 👈 importa o contexto
+import { API_URL } from "../config"; // ou ajuste o caminho conforme o local
 
 const FinalizarPingadim = () => {
   const navigate = useNavigate();

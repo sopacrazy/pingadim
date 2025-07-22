@@ -19,11 +19,15 @@ import {
 } from "@chakra-ui/react";
 import { FaGoogle, FaFacebook } from "react-icons/fa";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { API_URL } from "../config"; // ajuste o caminho se estiver em outra pasta
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || "/painel"; // volta pra página de origem ou painel
+
   const toast = useToast();
 
   const [email, setEmail] = useState("");
@@ -31,8 +35,6 @@ const Login = () => {
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleLogin = async () => {
-    console.log("🔁 Enviando dados de login:", email, senha);
-
     try {
       const response = await axios.post(`${API_URL}/api/auth/login`, {
         email,
@@ -41,7 +43,6 @@ const Login = () => {
 
       const { usuario, token } = response.data;
 
-      // Salvar no localStorage ANTES de redirecionar
       localStorage.setItem("usuario", JSON.stringify(usuario));
       localStorage.setItem("token", token);
 
@@ -52,8 +53,7 @@ const Login = () => {
         isClosable: true,
       });
 
-      // Agora sim redireciona
-      navigate("/painel");
+      navigate(from); // redireciona para a origem ou painel
     } catch (error) {
       console.error("Erro no login:", error);
       toast({
@@ -148,9 +148,14 @@ const Login = () => {
             </InputGroup>
 
             <HStack justify="space-between" w="100%">
-              <Link fontSize="sm" color="teal.600">
+              <Link
+                fontSize="sm"
+                color="teal.600"
+                onClick={() => navigate("/esqueci-senha")}
+              >
                 Esqueceu sua senha?
               </Link>
+
               <Text fontSize="sm" color="gray.500">
                 <Link color="teal.600" onClick={() => navigate("/criar-conta")}>
                   Criar conta

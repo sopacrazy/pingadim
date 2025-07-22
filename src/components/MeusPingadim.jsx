@@ -10,6 +10,8 @@ import {
   Avatar,
 } from "@chakra-ui/react";
 import { FaCoins } from "react-icons/fa";
+import { API_URL } from "../config"; // ou ajuste o caminho conforme o local
+import bannerPadrao from "../img/banner-padrao.png"; // ajuste o caminho conforme necessário
 
 const MeusPingadim = () => {
   const [pingadins, setPingadins] = useState([]);
@@ -66,17 +68,16 @@ const MeusPingadim = () => {
               _hover={{ transform: "scale(1.02)", boxShadow: "xl" }}
             >
               {/* Topo ilustrativo */}
-              <Box bg="teal.50" height="100px" position="relative">
-                <Avatar
-                  size="lg"
-                  icon={<FaCoins />}
-                  position="absolute"
-                  bottom="-20px"
-                  left="50%"
-                  transform="translateX(-50%)"
-                  bg="orange.400"
-                  color="white"
-                  border="3px solid white"
+              {/* Imagem do Pingadim ou banner padrão */}
+              <Box height="160px" overflow="hidden">
+                <img
+                  src={p.imagem || bannerPadrao}
+                  alt={p.titulo}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
                 />
               </Box>
 

@@ -1,10 +1,11 @@
 import React from "react";
-import { Flex, Image, Button, Spacer } from "@chakra-ui/react";
+import { Flex, Image, Button, Spacer, HStack } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import logo from "../img/logo.png";
 
 const TopBar = () => {
   const navigate = useNavigate();
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
 
   const handleLogout = () => {
     localStorage.clear();
@@ -30,9 +31,32 @@ const TopBar = () => {
         onClick={() => navigate("/")}
       />
       <Spacer />
-      <Button colorScheme="whiteAlpha" size="sm" onClick={handleLogout}>
-        Sair
-      </Button>
+      {usuario ? (
+        <HStack spacing={3}>
+          <Button
+            colorScheme="whiteAlpha"
+            size="sm"
+            onClick={() => navigate("/criar")}
+          >
+            Criar Pingadim
+          </Button>
+
+          <Button colorScheme="whiteAlpha" size="sm" onClick={handleLogout}>
+            Sair
+          </Button>
+        </HStack>
+      ) : (
+        <Button
+          colorScheme="whiteAlpha"
+          size="sm"
+          variant="outline"
+          onClick={() =>
+            navigate("/login", { state: { from: window.location.pathname } })
+          }
+        >
+          Entrar
+        </Button>
+      )}
     </Flex>
   );
 };
